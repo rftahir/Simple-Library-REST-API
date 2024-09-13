@@ -14,7 +14,7 @@ CREATE TABLE `Members` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(20) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `penalyEndDate` DATETIME(3) NULL,
+    `penaltyEndDate` DATETIME(3) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -27,7 +27,7 @@ model Members {
   id   Int    @id @default(autoincrement())
   code String @db.VarChar(20) @unique
   name String
-  penalyEndDate DateTime?
+  penaltyEndDate DateTime?
 
   borrowBooks BorrowBooks[]
 }

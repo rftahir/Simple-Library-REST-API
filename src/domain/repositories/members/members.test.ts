@@ -88,17 +88,17 @@ describe("MembersRepository", () => {
       const query = {
         where: { id }
       }
-      const penalyEndDate = new Date();
+      const penaltyEndDate = new Date();
 
       const mockNewdata: Prisma.MembersUpdateInput = {
-        penalyEndDate
+        penaltyEndDate
       }
 
       const mockOldData = mockMembers[1];
 
       const mockResult: Members = {
         ...mockOldData,
-        penalyEndDate
+        penaltyEndDate
       }
 
 
