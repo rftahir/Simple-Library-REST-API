@@ -2,5 +2,5 @@
 module.exports = {
   preset: "ts-jest", 
   testEnvironment: "node",
-  setupFilesAfterEnv: ['<rootDir>/src/infrastructures/singleton.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/infrastructures/prisma/singleton.ts'],
 };
