@@ -1,4 +1,4 @@
-import { Books, Prisma, PrismaClient, PrismaPromise } from "@prisma/client";
+import { Books, Prisma, PrismaClient } from "@prisma/client";
 import { IGenericPaginationQuery } from "../../entities/generic";
 import { IBooksRepository } from "../../interface/repositories/books";
 
@@ -10,7 +10,7 @@ export class BooksRepository implements IBooksRepository {
     this.client = client
   }
 
-  async get(param?: IGenericPaginationQuery, query?: Prisma.BooksWhereInput): Promise<PrismaPromise<Books[]>> {
+  async get(param?: IGenericPaginationQuery, query?: Prisma.BooksWhereInput): Promise<Books[]> {
 
     const result = await this.client.books.findMany({
       where: query,
@@ -28,7 +28,7 @@ export class BooksRepository implements IBooksRepository {
     return result;
   }
 
-  async getById(id: number): Promise<PrismaPromise<Books> | null> {
+  async getById(id: number): Promise<Books | null> {
     const result = await this.client.books.findFirst({
       where: {id}
     })
@@ -36,7 +36,7 @@ export class BooksRepository implements IBooksRepository {
     return result
   }
 
-  async update(id: number, data: Prisma.BooksUpdateInput): Promise<PrismaPromise<Books>> {
+  async update(id: number, data: Prisma.BooksUpdateInput): Promise<Books> {
     const result = await this.client.books.update({
       where: {
         id

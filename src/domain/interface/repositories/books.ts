@@ -1,10 +1,10 @@
-import { Books, Prisma, PrismaPromise } from "@prisma/client";
+import { Books, Prisma } from "@prisma/client";
 import { IGenericPaginationQuery } from "../../entities/generic";
 
 
 export interface IBooksRepository {
-  get(param?: IGenericPaginationQuery, query?: Prisma.BooksWhereInput): Promise<PrismaPromise<Books[]>>
+  get(param?: IGenericPaginationQuery, query?: Prisma.BooksWhereInput): Promise<Books[]>
   count(query?: Prisma.BooksWhereInput): Promise<number>
-  getById(id: number): Promise<PrismaPromise<Books> | null>
-  update(id: number, data: Prisma.BooksUpdateInput): Promise<PrismaPromise<Books>>
+  getById(id: number): Promise<Books | null>
+  update(id: number, data: Prisma.BooksUpdateInput): Promise<Books>
 }
