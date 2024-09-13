@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express';
 import server from './server';
-import prisma from './infrastructures/client';
+import prisma from './infrastructures/prisma/client';
 
 dotenv.config();
 const prismaClient = prisma;
