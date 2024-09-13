@@ -20,9 +20,7 @@ describe("MembersUseCase", () => {
 
   let membersUseCase: MembersUseCase;
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-
+  beforeAll(() => {
     mockMemberRepository = new MockMembersRepository();
     mockBorrowBookRepository = new MockBorrowBooksRepository();
 
@@ -30,6 +28,10 @@ describe("MembersUseCase", () => {
       mockMemberRepository,
       mockBorrowBookRepository
     );
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   describe("MemberUseCase.get", () => {
