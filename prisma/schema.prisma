@@ -20,7 +20,7 @@ model Books {
   author String
   stock Int @default(0)
 
-  rents Rents[]
+  borrowBooks BorrowBooks[]
 }
 
 model Members {
@@ -29,14 +29,14 @@ model Members {
   name String
   penalyEndDate DateTime?
 
-  rents Rents[]
+  borrowBooks BorrowBooks[]
 }
 
-model Rents {
+model BorrowBooks {
   id   Int    @id @default(autoincrement())
   booksId Int
   membersId Int
-  rentDate DateTime
+  borrowDate DateTime
   returnDate DateTime?
 
   book Books @relation(fields: [booksId], references: [id])
