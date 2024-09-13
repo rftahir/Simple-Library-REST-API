@@ -7,10 +7,10 @@ export default function MembersRouter(membersUseCase: IMembersUseCase) {
   const router = Router();
 
   /**
-   * Spec for the route /api/v1/members.
+   * Spec for the route /v1/members.
    *
     * @swagger
-    * /api/v1/members:
+    * /v1/members:
     *   get:
     *     summary: Get all members
     *     tags: [Members]
@@ -44,12 +44,18 @@ export default function MembersRouter(membersUseCase: IMembersUseCase) {
     *                     properties:
     *                       id:
     *                         type: string
+    *                       code:
+    *                         type: string
     *                       name:
     *                         type: string
-    *                       borrowedBooksCount:
-    *                         type: number
+    *                       penaltyEndDate:
+    *                         type: string
+    *                         format: date
+    *                         nullable: true
     *                       isPenaltized:
     *                         type: boolean
+    *                       borrowedBooksCount:
+    *                         type: number
     *                 totalData:
     *                   type: number
     *                 totalPage:
