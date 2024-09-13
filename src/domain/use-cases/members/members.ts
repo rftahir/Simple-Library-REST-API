@@ -30,7 +30,10 @@ export class MembersUseCase implements IMembersUseCase {
       members.map(async (member) => {
         const now = new Date();
         const isPenaltized = member.penaltyEndDate ? now < member.penaltyEndDate : false;
-        const borrowedBooksCount = await this.borrowBookRepository.count({membersId: member.id});
+        const borrowedBooksCount = await this.borrowBookRepository.count({
+          membersId: member.id,
+          returnDate: null
+        });
 
         return {
           ...member,
