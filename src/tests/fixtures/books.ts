@@ -1,4 +1,5 @@
 import { Books } from "@prisma/client";
+import { IGenericPaginationResult } from "../../domain/entities/generic";
 
 export const mockBooks: Books[] = [
   {
@@ -37,3 +38,11 @@ export const mockBooks: Books[] = [
     stock: 1,
   },
 ];
+
+
+export const mockPaginatedBooksResult: IGenericPaginationResult<Books> = {
+  data: mockBooks,
+  currentPage: 1,
+  totalData: 5,
+  totalPage: 1
+};

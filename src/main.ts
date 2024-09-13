@@ -8,6 +8,9 @@ import MembersRouter from "./presentations/routers/members/members";
 import { MembersRepository } from "./domain/repositories/members/members";
 import { MembersUseCase } from "./domain/use-cases/members/members";
 import { BorrowBooksRepository } from "./domain/repositories/borrowBooks/borrowBooks";
+import { BooksRepository } from "./domain/repositories/books/books";
+import { BooksUseCase } from "./domain/use-cases/books/books";
+import BooksRouter from "./presentations/routers/books/books";
 
 dotenv.config();
 const prismaClient = prisma;
@@ -15,6 +18,7 @@ const prismaClient = prisma;
 (async () => {
   // Repository Initializations
   const membersRepository = new MembersRepository(prisma);
+  const booksRepository = new BooksRepository(prisma);
   const borrowBooksRepository = new BorrowBooksRepository(prisma);
 
   // Usecase Initializations
@@ -23,16 +27,19 @@ const prismaClient = prisma;
     borrowBooksRepository
   );
 
-  const apiRouter = express();
-  const v1Router = express();
-  server.use("/api", apiRouter);
-  apiRouter.use("/v1", v1Router);
+  const booksUseCase = new BooksUseCase(
+    booksRepository
+  )
 
+  const v1Router = express();
+  server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  server.use("/v1", v1Router);
 
   const membersRouter = MembersRouter(membersUseCase);
-  server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  const booksRouter = BooksRouter(booksUseCase);
 
   v1Router.use("/members", membersRouter);
+  v1Router.use("/books", booksRouter);
 
   server.listen(process.env.APP_PORT, () => {
     console.log(`Server running on http://localhost:${process.env.APP_PORT}`);
