@@ -82,7 +82,7 @@ export default function BooksRouter(booksUseCase: IBooksUseCase) {
    *                       properties: 
    *                         additionalProperties: 
    *                           type: string
-   *                           example: {"skip": "Invalid value"}
+   *                           example: {"skip": "skip must be and integer greater than or equal 0"}
    *                     status:
    *                       type: number
    *                       example: 422
