@@ -22,14 +22,14 @@ export default function BooksRouter(booksUseCase: IBooksUseCase){
     *         required: false
     *         description: Number of data returned per page
     *         schema:
-    *           type: Integer
+    *           type: integer
     *           minimum: 1
     *       - name: skip
     *         in: query
     *         description: Skipped data for returned page
     *         required: false
     *         schema:
-    *           type: Integer
+    *           type: integer
     *           minimum: 0
     *     responses:
     *       200:
@@ -40,7 +40,7 @@ export default function BooksRouter(booksUseCase: IBooksUseCase){
     *               type: object
     *               properties:
     *                 data:
-    *                   types: array
+    *                   type: array
     *                   items:
     *                     type: object
     *                     properties:

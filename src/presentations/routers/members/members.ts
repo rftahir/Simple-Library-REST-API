@@ -38,12 +38,12 @@ export default function MembersRouter(membersUseCase: IMembersUseCase) {
     *               type: object
     *               properties:
     *                 data:
-    *                   types: array
+    *                   type: array
     *                   items:
     *                     type: object
     *                     properties:
     *                       id:
-    *                         type: string
+    *                         type: integer
     *                       code:
     *                         type: string
     *                       name:

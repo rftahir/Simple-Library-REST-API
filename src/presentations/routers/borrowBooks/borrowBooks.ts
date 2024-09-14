@@ -117,11 +117,11 @@ export default function BorrowBooksRouter(
    *               type: object
    *               properties:
    *                 id:
-   *                   type: number
+   *                   type: integer
    *                 bookId:
-   *                   type: number
+   *                   type: integer
    *                 memberId:
-   *                   type: number
+   *                   type: integer
    *                 borrowDate:
    *                   type: string
    *                   format: date
