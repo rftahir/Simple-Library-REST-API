@@ -9,6 +9,18 @@ export const mockInternalServerErrorResult = {
   status: "error",
 }
 
+export const mockPaginationValidationError = {
+  error: {
+    code: "VALIDATION_ERROR",
+    message: "Validation Error",
+    status: 422,
+    constraints: {
+      "skip": "skip must be an integer greater than or equal 0"
+    }
+  },
+  status: "error",
+}
+
 export const mockBooksNotFoundErrorResult = {
   error: {
     code: "BOOK_NOT_FOUND",

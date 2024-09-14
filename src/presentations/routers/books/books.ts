@@ -80,8 +80,8 @@ export default function BooksRouter(booksUseCase: IBooksUseCase) {
    *                     constraint:
    *                       type: object
    *                       nullable: true
-   *                       properties: 
-   *                         additionalProperties: 
+   *                       properties:
+   *                         additionalProperties:
    *                           type: string
    *                           example: {"skip": "skip must be and integer greater than or equal 0"}
    *                     status:
@@ -118,10 +118,14 @@ export default function BooksRouter(booksUseCase: IBooksUseCase) {
     async (req: Request, res: Response) => {
       try {
         const { validatedBody } = req;
-        const {skip, take} = validatedBody;
-        console.log(validatedBody);
+        const { skip, take } = validatedBody;
 
-        const result = await booksUseCase.get({skip: Number(skip), take: Number(take)});
+        const param = { 
+          skip: skip && Number(skip), 
+          take: take && Number(take)
+        };
+
+        const result = await booksUseCase.get(param);
         res.status(HttpStatusCode.Ok).send(result);
       } catch (error) {
         console.log(error);

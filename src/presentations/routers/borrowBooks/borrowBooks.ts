@@ -115,6 +115,7 @@ export default function BorrowBooksRouter(
       const result = await borrowBooksUseCase.borrow(bookId, memberId);
       res.status(HttpStatusCode.Created).send(result);
     } catch (error) {
+      console.log(error);
       handleRequestError(res, error);
     }
   });
@@ -230,6 +231,7 @@ export default function BorrowBooksRouter(
       const result = await borrowBooksUseCase.return(Number(borrowBookId), Number(memberId));
       res.status(HttpStatusCode.Created).send(result);
     } catch (error) {
+      console.log(error);
       handleRequestError(res, error);
     }
   });

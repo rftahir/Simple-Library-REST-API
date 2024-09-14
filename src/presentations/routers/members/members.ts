@@ -125,12 +125,15 @@ export default function MembersRouter(membersUseCase: IMembersUseCase) {
         const { validatedBody } = req;
         const { skip, take } = validatedBody;
 
-        const result = await membersUseCase.get({
-          skip: Number(skip),
-          take: Number(take),
-        });
+        const param = { 
+          skip: skip && Number(skip), 
+          take: take && Number(take)
+        };
+
+        const result = await membersUseCase.get(param);
         res.status(HttpStatusCode.Ok).send(result);
       } catch (error) {
+        console.log(error);
         handleRequestError(res, error);
       }
     }

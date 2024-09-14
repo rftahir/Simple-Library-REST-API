@@ -1,6 +1,6 @@
 import request from "supertest";
 import server from "../../../server";
-import { mockInternalServerErrorResult } from "../../../tests/fixtures/errors";
+import { mockInternalServerErrorResult, mockPaginationValidationError } from "../../../tests/fixtures/errors";
 import { MockBooksUseCase } from "../../../tests/mocks/usecase/books";
 import BooksRouter from "./books";
 import { mockPaginatedBooksResult } from "../../../tests/fixtures/books";
@@ -30,6 +30,34 @@ describe('BooksRouter', () => {
             expect(response.status).toBe(200)
             expect(mockBooksUseCase.get).toHaveBeenCalledTimes(1)
             expect(response.body).toStrictEqual(mockPaginatedBooksResult)
+
+        });
+
+        test("should call membersUseCase.get with correct parameters", async () => {
+          const mockGet = jest.spyOn(mockBooksUseCase, "get").mockImplementation(() => Promise.resolve(mockPaginatedBooksResult));
+          const queryParams = { skip: "10", take: "20" };
+          const response = await request(server).get("/books").query(queryParams);
+
+          const expectedParams = { 
+            skip: 10, 
+            take: 20
+          };
+
+          expect(mockGet).toHaveBeenCalledWith(expectedParams);
+
+          mockGet.mockRestore();
+        });
+
+        test("should return validation error when param is invalid", async () => {
+            
+            jest.spyOn(mockBooksUseCase, "get").mockImplementation(() => Promise.resolve(mockPaginatedBooksResult))
+            const queryParams = { skip: "abc", take: "20" };
+
+            const response = await request(server).get("/books").query(queryParams)
+
+            expect(response.status).toBe(422)
+            expect(mockBooksUseCase.get).toHaveBeenCalledTimes(0)
+            expect(response.body).toStrictEqual(mockPaginationValidationError)
 
         });
 
