@@ -7,6 +7,13 @@ export const membersNow = new Date();
 export const membersPastDate = new Date(membersNow.getTime() - 10000);
 export const membersFutureDate = new Date(membersNow.getTime() + 10000);
 
+export const mockSingleMember: Members = {
+    id: 1,
+    code: "M001",
+    name: "Angga",
+    penaltyEndDate: null
+}
+
 export const mockMembers: Members[] = [
     {
         id: 1,

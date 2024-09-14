@@ -2,7 +2,6 @@ import { Members } from "@prisma/client";
 import {
   membersFutureDate,
   membersPastDate,
-  mockMembers,
   mockPaginatedMembersResult,
 } from "../../../tests/fixtures/members";
 import { MockBorrowBooksRepository } from "../../../tests/mocks/repositories/borrowBooks";

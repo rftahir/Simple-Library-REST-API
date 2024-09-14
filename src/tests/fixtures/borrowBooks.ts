@@ -1,4 +1,14 @@
 import { BorrowBooks } from "@prisma/client";
+
+export const mockSingleBorrowBooks: BorrowBooks = {
+  id: 1,
+  booksId: 1,
+  membersId: 1,
+  borrowDate: new Date(),
+  returnDate: null
+}
+
+
 export const mockBorrowBooks: BorrowBooks[] = [
   {
     id: 1,

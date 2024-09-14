@@ -1,6 +1,14 @@
 import { Books } from "@prisma/client";
 import { IGenericPaginationResult } from "../../domain/entities/generic";
 
+export const mockSingleBook: Books = {
+  id: 1,
+  code: "JK-45",
+  title: "Harry Potter",
+  author: "J.K Rowling",
+  stock: 1,
+}
+
 export const mockBooks: Books[] = [
   {
     id: 1,
