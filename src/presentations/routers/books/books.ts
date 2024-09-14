@@ -79,6 +79,7 @@ export default function BooksRouter(booksUseCase: IBooksUseCase) {
    *                       example: ValidationError
    *                     constraint:
    *                       type: object
+   *                       nullable: true
    *                       properties: 
    *                         additionalProperties: 
    *                           type: string
@@ -118,6 +119,7 @@ export default function BooksRouter(booksUseCase: IBooksUseCase) {
       try {
         const { validatedBody } = req;
         const {skip, take} = validatedBody;
+        console.log(validatedBody);
 
         const result = await booksUseCase.get({skip: Number(skip), take: Number(take)});
         res.status(HttpStatusCode.Ok).send(result);

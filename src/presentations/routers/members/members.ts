@@ -83,6 +83,7 @@ export default function MembersRouter(membersUseCase: IMembersUseCase) {
    *                       example: ValidationError
    *                     constraint:
    *                       type: object
+   *                       nullable: true
    *                       properties: 
    *                         additionalProperties: 
    *                           type: string

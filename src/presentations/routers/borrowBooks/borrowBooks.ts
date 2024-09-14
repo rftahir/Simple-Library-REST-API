@@ -2,6 +2,9 @@ import { Request, Response, Router } from "express";
 import { IBorrowBooksUseCase } from "../../../domain/interface/use-cases/borrowBooks";
 import { handleRequestError } from "../../handlers/handleRequestError";
 import { HttpStatusCode } from "axios";
+import { ValidationMiddleware } from "../../middlewares/ValidationMiddleware";
+import { checkSchema } from "express-validator";
+import { borrowBookValidationSchema, returnBookValidationSchema } from "../../validations/borrowBook";
 
 export default function BorrowBooksRouter(
   borrowBooksUseCase: IBorrowBooksUseCase
@@ -48,6 +51,35 @@ export default function BorrowBooksRouter(
    *                   type: string
    *                   format: date
    *                   nullable: true
+   *       422:
+   *         description: Unprocessable Entities
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: object
+   *                   properties:
+   *                     name:
+   *                       type: string
+   *                       example: VALIDATION_ERROR
+   *                     message:
+   *                       type: string
+   *                       example: ValidationError
+   *                     constraint:
+   *                       type: object
+   *                       nullable: true
+   *                       properties: 
+   *                         additionalProperties: 
+   *                           type: string
+   *                           example: {"skip": "skip must be and integer greater than or equal 0"}
+   *                     status:
+   *                       type: number
+   *                       example: 422
+   *                 status:
+   *                   type: string
+   *                   example: error
    *       500:
    *         description: Internal server error
    *         content:
@@ -72,10 +104,13 @@ export default function BorrowBooksRouter(
    *                   example: error
    */
 
-  router.post("/", async (req: Request, res: Response) => {
+  router.post(
+    "/",
+    ValidationMiddleware(checkSchema(borrowBookValidationSchema)),
+    async (req: Request, res: Response) => {
     try {
-      const { body } = req;
-      const { bookId, memberId } = body;
+      const { validatedBody } = req;
+      const { bookId, memberId } = validatedBody;
 
       const result = await borrowBooksUseCase.borrow(bookId, memberId);
       res.status(HttpStatusCode.Created).send(result);
@@ -129,6 +164,35 @@ export default function BorrowBooksRouter(
    *                   type: string
    *                   format: date
    *                   nullable: true
+   *       422:
+   *         description: Unprocessable Entities
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 error:
+   *                   type: object
+   *                   properties:
+   *                     name:
+   *                       type: string
+   *                       example: VALIDATION_ERROR
+   *                     message:
+   *                       type: string
+   *                       example: ValidationError
+   *                     constraint:
+   *                       type: object
+   *                       nullable: true
+   *                       properties: 
+   *                         additionalProperties: 
+   *                           type: string
+   *                           example: {"skip": "skip must be and integer greater than or equal 0"}
+   *                     status:
+   *                       type: number
+   *                       example: 422
+   *                 status:
+   *                   type: string
+   *                   example: error
    *       500:
    *         description: Internal server error
    *         content:
@@ -153,13 +217,17 @@ export default function BorrowBooksRouter(
    *                   example: error
    */
 
-  router.put("/:borrowBookId", async (req: Request, res: Response) => {
+  router.put(
+    "/:borrowBookId", 
+    ValidationMiddleware([
+      ...checkSchema(returnBookValidationSchema)
+    ]),
+    async (req: Request, res: Response) => {
     try {
-      const { body, params } = req;
-      const { memberId } = body;
-      const { borrowBookId } = params;
+      const { validatedBody } = req;
+      const { borrowBookId, memberId } = validatedBody;
 
-      const result = await borrowBooksUseCase.return(Number(borrowBookId), memberId);
+      const result = await borrowBooksUseCase.return(Number(borrowBookId), Number(memberId));
       res.status(HttpStatusCode.Created).send(result);
     } catch (error) {
       handleRequestError(res, error);
