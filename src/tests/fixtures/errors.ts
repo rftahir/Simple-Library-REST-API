@@ -11,6 +11,24 @@ export const mockInternalServerErrorResult = {
 
 export const mockBooksNotFoundErrorResult = {
   error: {
+    code: "BOOK_NOT_FOUND",
+    message: "The book you\'re looking for is not exist ",
+    status: 404,
+  },
+  status: "error",
+}
+
+export const mockBooksOutOfStockErrorResult = {
+  error: {
+    code: "BOOK_OUT_OF_STOCK",
+    message: "The book you\'re looking for is not available ",
+    status: 404,
+  },
+  status: "error",
+}
+
+export const mockBorrowedBooksNotFoundErrorResult = {
+  error: {
     code: "BORROWED_BOOK_NOT_FOUND",
     message: "The borrow book data you\'re looking for is not exist ",
     status: 404,
