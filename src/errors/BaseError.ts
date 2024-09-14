@@ -5,7 +5,7 @@ class BaseError extends Error {
 
   status: number;
 
-  constraints?: Record<string, string | object>;
+  constraints?: unknown;
 
   constructor(status: number) {
     super();
