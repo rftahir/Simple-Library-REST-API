@@ -1,6 +1,5 @@
 import request from "supertest";
 import server from "../../../server";
-import { mockPaginatedMembersResult } from "../../../tests/fixtures/members";
 import { mockInternalServerErrorResult } from "../../../tests/fixtures/errors";
 import { MockBooksUseCase } from "../../../tests/mocks/usecase/books";
 import BooksRouter from "./books";
@@ -34,7 +33,7 @@ describe('BooksRouter', () => {
 
         });
 
-        test("GET /contact returns 500 on use case error", async () => {
+        test("should returns 500 on use case error", async () => {
             jest.spyOn(mockBooksUseCase, "get").mockImplementation(() => Promise.reject(Error()))
             const response = await request(server).get("/books")
             expect(response.status).toBe(500)

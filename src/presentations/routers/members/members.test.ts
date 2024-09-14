@@ -40,7 +40,7 @@ describe('MembersRouter', () => {
 
         });
 
-        test("GET /contact returns 500 on use case error", async () => {
+        test("should returns 500 on use case error", async () => {
             jest.spyOn(mockMembersUseCase, "get").mockImplementation(() => Promise.reject(Error()))
             const response = await request(server).get("/members")
             expect(response.status).toBe(500)
